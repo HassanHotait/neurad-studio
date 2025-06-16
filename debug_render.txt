@@ -1,0 +1,94 @@
+hotait@muclcgpu05:/home/sfusion/users/hassan/CodeBase/neurad-studio$ python nerfstudio/scripts/render.py dataset --load-config /home/sfusion/users/hassan/CodeBase/neurad-studio/outputs/unnamed/neurad/2025-06-13_183130/configcopy.yml --render-lidar --output-path /home/sfusion/users/hassan/CodeBase/neurad-studio/outputs/unnamed/neurad/2025-06-13_183130
+2025-06-16 18:49:01.737898: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-06-16 18:49:01.842475: I tensorflow/core/util/port.cc:104] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Waymo dataparser has missing dependencies, please following installation instructions in README.md
+╭─ Unrecognized options ──────────────────╮
+│ Unrecognized options: --render-lidar    │
+│ ─────────────────────────────────────── │
+│ For full helptext, run render.py --help │
+╰─────────────────────────────────────────╯
+hotait@muclcgpu05:/home/sfusion/users/hassan/CodeBase/neurad-studio$ python nerfstudio/scripts/render.py dataset --help
+2025-06-16 18:49:44.727813: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-06-16 18:49:44.831605: I tensorflow/core/util/port.cc:104] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Waymo dataparser has missing dependencies, please following installation instructions in README.md
+usage: render.py dataset [-h] [DATASET OPTIONS]
+
+Render all images in the dataset.
+
+╭─ options ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help              show this help message and exit                                                                                                        │
+│ --load-config PATH      Path to config YAML file. (required)                                                                                                   │
+│ --output-path PATH      Path to output video file. (default: renders)                                                                                          │
+│ --image-format {jpeg,png}                                                                                                                                      │
+│                         Image format (default: jpeg)                                                                                                           │
+│ --jpeg-quality INT      JPEG quality (default: 100)                                                                                                            │
+│ --downscale-factor {None}|FLOAT                                                                                                                                │
+│                         Scaling factor to apply to the camera image resolution. (default: None)                                                                │
+│ --eval-num-rays-per-chunk {None}|INT                                                                                                                           │
+│                         Specifies number of rays per chunk during eval. If None, use the value in the config file. (default: None)                             │
+│ --rendered-output-names [STR [STR ...]]                                                                                                                        │
+│                         Name of the renderer outputs to use. rgb, depth, raw-depth, gt-rgb etc. By default all outputs are rendered. (default: all)            │
+│ --depth-near-plane {None}|FLOAT                                                                                                                                │
+│                         Closest depth to consider when using the colormap for depth. If None, use min value. (default: None)                                   │
+│ --depth-far-plane {None}|FLOAT                                                                                                                                 │
+│                         Furthest depth to consider when using the colormap for depth. If None, use max value. (default: None)                                  │
+│ --render-nearest-camera {True,False}                                                                                                                           │
+│                         Whether to render the nearest training camera to the rendered camera. (default: False)                                                 │
+│ --check-occlusions {True,False}                                                                                                                                │
+│                         If true, checks line-of-sight occlusions when computing camera distance and rejects cameras not visible to each other (default: False) │
+│ --pose-source {train,val,test,train+test,train+val}                                                                                                            │
+│                         Split to render. (default: test)                                                                                                       │
+│ --data {None}|PATH      Override path to the dataset. (default: None)                                                                                          │
+│ --config-output-dir {None}|PATH                                                                                                                                │
+│                         Override the config output dir. Used to load the model. (default: None)                                                                │
+│ --strict-load {True,False}                                                                                                                                     │
+│                         Whether to strictly load the config. (default: True)                                                                                   │
+│ --load-ignore-keys {None}|{[STR [STR ...]]}                                                                                                                    │
+│                         Keys to ignore when loading the config. (default: )                                                                                    │
+│ --render-height {None}|INT                                                                                                                                     │
+│                         Height to render the images at. (default: None)                                                                                        │
+│ --render-width {None}|INT                                                                                                                                      │
+│                         Width to render the images at. (default: None)                                                                                         │
+│ --output-height {None}|INT                                                                                                                                     │
+│                         Height to crop the output images at. (default: None)                                                                                   │
+│ --output-width {None}|INT                                                                                                                                      │
+│                         Width to crop the output images at. (default: None)                                                                                    │
+│ --shift FLOAT FLOAT FLOAT                                                                                                                                      │
+│                         Shift to apply to the camera pose. (default: 0 0 0)                                                                                    │
+│ --actor-shift [FLOAT [FLOAT ...]]                                                                                                                              │
+│                         Shift to apply to all actor poses. (default: 0.0 0.0 0.0)                                                                              │
+│ --actor-removal-time {None}|FLOAT                                                                                                                              │
+│                         Time at which to remove all actors. (default: None)                                                                                    │
+│ --actor-stop-time {None}|FLOAT                                                                                                                                 │
+│                         Time at which to stop all actors. (default: None)                                                                                      │
+│ --actor-indices {None}|{[INT [INT ...]]}                                                                                                                       │
+│                         Indices of actors to modify. If None, modify all actors. (default: None)                                                               │
+│ --calculate-and-save-metrics {True,False}                                                                                                                      │
+│                         Whether to calculate and save metrics. (default: False)                                                                                │
+│ --metrics-filename PATH                                                                                                                                        │
+│                         Filename to save the metrics to. (default: metrics.pkl)                                                                                │
+│ --render-point-clouds {True,False}                                                                                                                             │
+│                         Whether to render point clouds. (default: False)                                                                                       │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ colormap-options options ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Colormap options.                                                                                                                                              │
+│ ────────────────────────────────────────────────────────────────────────────────────                                                                           │
+│ --colormap-options.colormap {default,turbo,viridis,magma,inferno,cividis,gray,pca}                                                                             │
+│                         The colormap to use (default: default)                                                                                                 │
+│ --colormap-options.normalize {True,False}                                                                                                                      │
+│                         Whether to normalize the input tensor image (default: False)                                                                           │
+│ --colormap-options.colormap-min FLOAT                                                                                                                          │
+│                         Minimum value for the output colormap (default: 0)                                                                                     │
+│ --colormap-options.colormap-max FLOAT                                                                                                                          │
+│                         Maximum value for the output colormap (default: 1)                                                                                     │
+│ --colormap-options.invert {True,False}                                                                                                                         │
+│                         Whether to invert the output colormap (default: False)                                                                                 │
+│ --colormap-options.range-min {None}|FLOAT                                                                                                                      │
+│                         Minimum value for the input tensor image (default: None)                                                                               │
+│ --colormap-options.range-max {None}|FLOAT                                                                                                                      │
+│                         Maximum value for the input tensor image (default: None)                                                                               │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+hotait@muclcgpu05:/home/sfusion/users/hassan/CodeBase/neurad-studio$ 
+hotait@muclcgpu05:/home/sfusion/users/hassan/CodeBase/neurad-studio$ (venv_neurad) hotait@mucll002:/home/sfusion/users/hassan/CodeBase/neurad-studio$ 
